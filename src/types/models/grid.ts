@@ -13,6 +13,7 @@ export interface Grid {
   hide(): void;
   moveTo(position: Point): void;
   setSize(data: { width: number; height: number }): void;
+  getCell(position: Point): GridChunk | null;
 }
 
 export interface GridChunk {

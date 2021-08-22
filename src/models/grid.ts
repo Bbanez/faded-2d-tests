@@ -131,5 +131,17 @@ export function createGrid(
     toGrid(pos) {
       return toGrid(info, pos);
     },
+    getCell(pos) {
+      const chunk = info.chunks[pos.y][pos.x];
+      if (chunk) {
+        return {
+          height: info.chunkSize.y,
+          width: info.chunkSize.x,
+          index: [pos.x, pos.y],
+          position: chunk,
+        };
+      }
+      return null;
+    },
   };
 }
