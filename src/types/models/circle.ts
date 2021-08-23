@@ -5,4 +5,4 @@ export interface CircleConfig extends DefaultModelInputs {
   size: number;
 }
 
-export type Circle = Animatable<CircleConfig>;
+export type Circle = Animatable;

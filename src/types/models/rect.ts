@@ -7,4 +7,4 @@ export interface RectConfig extends DefaultModelInputs {
   height: number;
 }
 
-export type Rect = Animatable<RectConfig>;
+export type Rect = Animatable;

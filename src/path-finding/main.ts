@@ -57,10 +57,16 @@ export async function pathFinding(game: Application): Promise<void> {
   const map = staticPart({ mapData, grid });
   console.log(map);
   map.chunks.forEach((chunk) => {
-    createCircle(game, {
-      position: chunk.pos,
-      color: 0x00ff00,
-      size: 10,
+    chunk.nodes.forEach((node) => {
+      let color = 0x009900;
+      if (node.connecting) {
+        color = 0x00ff00;
+      }
+      createCircle(game, {
+        position: node.pos,
+        color,
+        size: 3,
+      });
     });
   });
 }
@@ -128,12 +134,10 @@ function staticPart({
   }
   function findNeighbor(
     mapChunk: MapChunk,
-    mapChunkIndex: number,
     col: number,
     row: number,
     nodeIndex: number,
   ) {
-    console.log(mapChunkIndex, nodeIndex);
     const mapPoint = mapData[row][col];
     if (mapPoint > 0 && !mapChunk.nodes[nodeIndex].connecting) {
       let neighborChunkIndex = -1;
@@ -152,9 +156,6 @@ function staticPart({
             node.pos.x === mapChunk.nodes[nodeIndex].pos.x &&
             node.pos.y === mapChunk.nodes[nodeIndex].pos.y,
         );
-        if (mapChunkIndex === 0 && nodeIndex === 1) {
-          console.log('lol', mapChunkIndex, nodeIndex, neighborChunkNodeIndex);
-        }
         if (neighborChunkNodeIndex !== -1) {
           mapChunk.nodes[nodeIndex].connecting = true;
           mapChunk.nodes[nodeIndex].connectedChunkIndex = neighborChunkIndex;
@@ -184,7 +185,6 @@ function staticPart({
       if (mapData[chunk.gridInfo.row - 1][chunk.gridInfo.col - 1] > 0) {
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col - 1,
           chunk.gridInfo.row - 1,
           0,
@@ -194,14 +194,12 @@ function staticPart({
       if (mapData[chunk.gridInfo.row - 1][chunk.gridInfo.col] > 0) {
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col,
           chunk.gridInfo.row - 1,
           0,
         );
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col,
           chunk.gridInfo.row - 1,
           1,
@@ -211,7 +209,6 @@ function staticPart({
       if (mapData[chunk.gridInfo.row - 1][chunk.gridInfo.col + 1] > 0) {
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col + 1,
           chunk.gridInfo.row - 1,
           1,
@@ -222,14 +219,12 @@ function staticPart({
     if (mapData[chunk.gridInfo.row][chunk.gridInfo.col + 1] > 0) {
       findNeighbor(
         map.chunks[i],
-        i,
         chunk.gridInfo.col + 1,
         chunk.gridInfo.row,
         1,
       );
       findNeighbor(
         map.chunks[i],
-        i,
         chunk.gridInfo.col + 1,
         chunk.gridInfo.row,
         2,
@@ -241,7 +236,6 @@ function staticPart({
       if (mapData[chunk.gridInfo.row + 1][chunk.gridInfo.col - 1] > 0) {
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col - 1,
           chunk.gridInfo.row + 1,
           3,
@@ -251,14 +245,12 @@ function staticPart({
       if (mapData[chunk.gridInfo.row + 1][chunk.gridInfo.col] > 0) {
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col,
           chunk.gridInfo.row + 1,
           2,
         );
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col,
           chunk.gridInfo.row + 1,
           3,
@@ -268,7 +260,6 @@ function staticPart({
       if (mapData[chunk.gridInfo.row + 1][chunk.gridInfo.col + 1] > 0) {
         findNeighbor(
           map.chunks[i],
-          i,
           chunk.gridInfo.col + 1,
           chunk.gridInfo.row + 1,
           2,
@@ -279,14 +270,12 @@ function staticPart({
     if (mapData[chunk.gridInfo.row][chunk.gridInfo.col - 1] > 0) {
       findNeighbor(
         map.chunks[i],
-        i,
         chunk.gridInfo.col - 1,
         chunk.gridInfo.row,
         3,
       );
       findNeighbor(
         map.chunks[i],
-        i,
         chunk.gridInfo.col - 1,
         chunk.gridInfo.row,
         0,

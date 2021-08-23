@@ -32,43 +32,43 @@ export function createRect(
       graphics.destroy();
       game.stage.removeChild(graphics);
     },
-    set(ops) {
-      if (!ops) {
-        return;
-      }
-      if (ops.position) {
-        graphics.clear();
-        graphics.beginFill(color, alpha ? alpha : 1);
-        graphics.drawRect(
-          ops.position.x,
-          ops.position.y,
-          ops.width,
-          ops.height,
-        );
-        graphics.moveTo(ops.position.x, ops.position.y);
-        graphics.endFill();
-      }
-      if (ops.color) {
-        graphics.fill.color = ops.color;
-      }
-    },
-    update(ops) {
-      if (!ops) {
-        return;
-      }
-      if (ops.position) {
-        graphics.position.x = graphics.position.x + ops.position.x;
-        graphics.position.y = graphics.position.y + ops.position.y;
-      }
-      if (ops.width) {
-        graphics.width = ops.height;
-      }
-      if (ops.height) {
-        graphics.height = ops.height;
-      }
-      if (ops.color) {
-        graphics.fill.color = ops.color;
-      }
-    },
+    // set(ops) {
+    //   if (!ops) {
+    //     return;
+    //   }
+    //   if (ops.position) {
+    //     graphics.clear();
+    //     graphics.beginFill(color, alpha ? alpha : 1);
+    //     graphics.drawRect(
+    //       ops.position.x,
+    //       ops.position.y,
+    //       ops.width,
+    //       ops.height,
+    //     );
+    //     graphics.moveTo(ops.position.x, ops.position.y);
+    //     graphics.endFill();
+    //   }
+    //   if (ops.color) {
+    //     graphics.fill.color = ops.color;
+    //   }
+    // },
+    // update(ops) {
+    //   if (!ops) {
+    //     return;
+    //   }
+    //   if (ops.position) {
+    //     graphics.position.x = graphics.position.x + ops.position.x;
+    //     graphics.position.y = graphics.position.y + ops.position.y;
+    //   }
+    //   if (ops.width) {
+    //     graphics.width = ops.height;
+    //   }
+    //   if (ops.height) {
+    //     graphics.height = ops.height;
+    //   }
+    //   if (ops.color) {
+    //     graphics.fill.color = ops.color;
+    //   }
+    // },
   };
 }

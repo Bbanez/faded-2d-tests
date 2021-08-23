@@ -1,8 +1,6 @@
 import { Graphics } from 'pixi.js';
 
-export interface Animatable<T> {
+export interface Animatable {
   g: Graphics;
-  update(options?: T): void;
-  set(options?: T): void;
   remove(): void;
 }
