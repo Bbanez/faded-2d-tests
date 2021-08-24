@@ -1,7 +1,9 @@
 import { Point } from '../point';
 
 export interface CircleFunctions {
-  getTangentLines(point: Point): LinearFunctions[];
+  origin: Point;
+  r: number;
+  getTangentLines(point: Point): LinearFunctions[] | null;
   f(x: number): [number, number] | null;
   getIntersectionsWithLine(line: LinearFunctions): [Point, Point] | null;
   getIntersectionsWithCircle(circle: CircleFunctions): [Point, Point] | null;
@@ -12,11 +14,11 @@ export interface CircleFunctions {
   /**
    * Will check if passed circle is inside.
    */
-  isInside(circle: CircleFunctions): boolean;
+  isInside(point: Point): boolean;
   /**
    * Will check if passed circle is outside.
    */
-  isOutside(circle: CircleFunctions): boolean;
+  isOutside(point: Point): boolean;
 }
 
 export interface LinearFunctions {

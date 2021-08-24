@@ -29,12 +29,12 @@ export function printLine(
   const circle1 = createCircle(game, {
     position: line.originPoints.start,
     color: 0x000099,
-    size: 10,
+    size: 3,
   });
   const circle2 = createCircle(game, {
     position: line.originPoints.end,
     color: 0x0000ff,
-    size: 10,
+    size: 3,
   });
 
   return {

@@ -3,8 +3,8 @@ import './styles/main.scss';
 import { Application } from 'pixi.js';
 import { pathFinding } from './path-finding';
 import { TickerService } from './services';
-import { createLine, printLine } from './models';
-import { createLineFunction } from './util';
+import { createCircleFunction } from './util';
+import { printCircle, printLine } from './models';
 
 window.addEventListener('load', async () => {
   const area = document.getElementById('game') as HTMLCanvasElement;
@@ -16,18 +16,34 @@ window.addEventListener('load', async () => {
     backgroundColor: 0x8822ee,
   });
 
+  const circle = createCircleFunction({
+    origin: { x: 300, y: 300 },
+    r: 100,
+  });
+  printCircle(game, circle);
+
   game.ticker.add(() => {
     TickerService.tick();
   });
-  const line1 = createLineFunction({
-    start: { x: 0, y: 0 },
-    end: { x: window.innerWidth, y: window.innerHeight },
+  let t1: any;
+  let t2: any;
+  TickerService.handler.add((_t) => {
+    if (t1) {
+      t1.remove();
+      t2.remove();
+    }
+    const t = _t / 1000;
+    const r = 110;
+    const x = 300 + r * Math.cos(t);
+    const y = 300 + r * Math.sin(t);
+    const lines = circle.getTangentLines({ x, y });
+    if (lines) {
+      t1 = printLine(game, { line: lines[0] });
+      t2 = printLine(game, { line: lines[1] });
+    } else {
+      t1 = null;
+      t2 = null;
+    }
   });
-  const parallel1 = line1.getParallel({ x: 200, y: 300 });
-  const normal1 = line1.getNormal({ x: 200, y: 100 });
-  printLine(game, { line: line1 });
-  printLine(game, { line: parallel1 });
-  printLine(game, { line: normal1 });
-
-  await pathFinding(game);
+  // await pathFinding(game);
 });

@@ -1,5 +1,5 @@
 import { Application, Graphics } from 'pixi.js';
-import { Circle, CircleConfig } from '../types';
+import { Circle, CircleConfig, CircleFunctions } from '../types';
 
 export function createCircle(
   game: Application,
@@ -65,5 +65,21 @@ export function createCircle(
     //     graphics.fill.color = ops.color;
     //   }
     // },
+  };
+}
+
+export function printCircle(
+  game: Application,
+  circleFn: CircleFunctions,
+): { remove(): void } {
+  const circle = createCircle(game, {
+    position: circleFn.origin,
+    color: 0x440044,
+    size: circleFn.r,
+  });
+  return {
+    remove() {
+      circle.remove();
+    },
   };
 }
