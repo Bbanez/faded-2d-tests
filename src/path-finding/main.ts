@@ -2,7 +2,7 @@ import { Application } from 'pixi.js';
 import { createCircle, createGrid, createRect } from '../models';
 import { Grid, GridChunk } from '../types';
 import { Assets, getPixelData, loadAssets, loopMatrix } from '../util';
-import { Map, MapChunk } from './types';
+import { Map, MapChunk, MapChunkNode } from './types';
 
 export async function pathFinding(game: Application): Promise<void> {
   const gridSize = 400;
@@ -71,6 +71,16 @@ export async function pathFinding(game: Application): Promise<void> {
   });
 }
 
+function s2(
+  {
+    mapData,
+    grid,
+  }: {
+    mapData: number[][];
+    grid: Grid;
+  }
+)
+
 function staticPart({
   mapData,
   grid,
@@ -82,6 +92,9 @@ function staticPart({
     chunkGroups: [],
     chunks: [],
   };
+  const nodes: {
+    [position]
+  }
 
   function createChunk(
     gridChunk: GridChunk,

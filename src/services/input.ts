@@ -6,7 +6,11 @@ import {
   InputServiceSubscriptionType,
 } from '../types';
 
-export function createInputService(): InputServicePrototype {
+export const InputService: InputServicePrototype = {
+  subscribe: undefined as never,
+};
+
+export function createInputService(): void {
   const st: InputServiceState = {
     keyboard: {
       key: '',
@@ -161,13 +165,11 @@ export function createInputService(): InputServicePrototype {
     event.preventDefault();
   });
 
-  return {
-    subscribe(type, handler) {
-      const id = uuidv4();
-      subs[id] = { type, handler };
-      return () => {
-        delete subs[id];
-      };
-    },
+  InputService.subscribe = (type, handler) => {
+    const id = uuidv4();
+    subs[id] = { type, handler };
+    return () => {
+      delete subs[id];
+    };
   };
 }

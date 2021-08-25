@@ -1,7 +1,8 @@
-import { Point } from "../../types";
+import { CircleFunctions } from '../../types';
 
 export interface Node {
-  pos: Point;
-  r: number;
-  circle
+  id: string;
+  next: string;
+  chunkIds: string[];
+  c: CircleFunctions;
 }
